@@ -1,68 +1,47 @@
-import React, {useEffect, useState} from "react";
-import {useDrop} from "react-dnd";
+import React, { useEffect, useState } from "react";
+import { useDrop } from "react-dnd";
 import Elements from "../components/Elements";
-import InputElement from "./InputElement";
-import CheckboxElement from "./CheckboxElement";
-import SelectElement from "./SelectElement";
-import formElements from '../formElement.json'
-
-const boxList = [
-    {
-        id: 1,
-        box: <InputElement/>,
-    },
-    {
-        id: 2,
-        box: <CheckboxElement/>,
-    },
-    {
-        id: 3,
-        box: <SelectElement/>,
-    },
-];
+import formElement from "../formElement.json";
+import SideBar from "./SideBar";
 
 function DragDrop() {
-    const [board, setBoard] = useState([]);
-    const [elementsJson, setElementsJson] = useState([]);
+	const [board, setBoard] = useState([]);
+	const [elementsJson, setElementsJson] = useState([]);
 
-    useEffect(() => {
-        setElementsJson(formElements)
-    }, []);
+	useEffect(() => {
+		setElementsJson(formElement);
+	}, []);
 
-    const [{isOver}, drop] = useDrop(() => ({
-        accept: ["input", "checkbox", "select"],
-        drop: (item) => addBox(item.id),
-        collect: (monitor) => ({
-            isOver: !!monitor.isOver(),
-        }),
-    }));
+	const [{ isOver }, drop] = useDrop(() => ({
+		accept: ["input", "checkbox", "select", "box"],
+		drop: (item) => addBox(item.id),
+		collect: (monitor) => ({
+			isOver: !!monitor.isOver(),
+		}),
+	}));
 
-    const addBox = (id) => {
-        console.log(id);
-        const listBox = boxList.filter((box) => id === box.id);
-        setBoard((board1) => [...board1, listBox[0]]);
-    };
+	const { fields } = elementsJson[0] ?? {};
 
-    const {fields, page_label} = elementsJson ?? {}
+	const addBox = (id) => {
+		console.log(id);
+		const listBox = fields?.filter((field) => id === field.field_id);
+		setBoard((board) => [...board, listBox[0]]);
+	};
 
-    return (
-        <>
-            <div className="pictures">
-                {boxList.map((box) => {
-                    return (
-                        <div className="box" key={box.id} id={box.id}>
-                            {box.box}
-                        </div>
-                    );
-                })}
-            </div>
-            <div className="board" ref={drop}>
-                {board.map((box) => {
-                    return fields ? fields.map((field, i) => <Elements key={i} field={field}/>) : null
-                })}
-            </div>
-        </>
-    );
+	console.log("data", fields);
+
+	return (
+		<>
+			<div className="board" ref={drop}>
+				{board.map(() => {
+					return fields?.map((field) => {
+						return <Elements field={field} />;
+					});
+				})}
+			</div>
+			<SideBar />
+		</>
+	);
 }
 
 export default DragDrop;

@@ -7,7 +7,7 @@
 				"field_label": "Name",
 				"field_mandatory": "yes",
 				"field_placeholder": "Enter name",
-				"field_type": "text",
+				"field_type": "input",
 				"field_value": "",
 				"field_layout": {
 					"layout_col": 12
@@ -18,7 +18,7 @@
 				"field_label": "Email",
 				"field_mandatory": "yes",
 				"field_placeholder": "Enter email",
-				"field_type": "text",
+				"field_type": "input",
 				"field_layout": {
 					"layout_col": 12
 				}
