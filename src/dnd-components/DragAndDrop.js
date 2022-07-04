@@ -1,3 +1,4 @@
+import { Button, Form } from "antd";
 import React, { useEffect, useState } from "react";
 import { useDrop } from "react-dnd";
 import Elements from "../components/Elements";
@@ -32,14 +33,19 @@ function DragDrop() {
 
 	return (
 		<>
-			<div className="board" ref={drop}>
-				{board.map(() => {
-					return fields?.map((field) => {
-						return <Elements field={field} />;
-					});
-				})}
-			</div>
-			<SideBar />
+			<Form layout="vertical">
+				<div style={{ display: "flex" }}>
+					<div className="board" ref={drop}>
+						{board.map(() => {
+							return fields?.map((field) => {
+								return <Elements field={field} />;
+							});
+						})}
+					</div>
+					<SideBar />
+				</div>
+				{/* <Button htmlType="submit">Save form</Button> */}
+			</Form>
 		</>
 	);
 }

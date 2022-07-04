@@ -1,4 +1,4 @@
-import React, { Component, createRef } from "react";
+import React, { createRef, useEffect } from "react";
 import $ from "jquery";
 
 window.jQuery = $;
@@ -9,13 +9,16 @@ require("formBuilder");
 
 const formData = [];
 
-export default class FormBuilder extends Component {
-	fb = createRef();
-	componentDidMount() {
-		$(this.fb.current).formBuilder({ formData });
-	}
+function FormBuilder() {
+	const fb = createRef();
 
-	render() {
-		return <div id="fb-editor" ref={this.fb} />;
-	}
+	useEffect(() => {
+		$(fb.current).formBuilder({ formData });
+	}, [formData]);
+
+	console.log("data", $(fb));
+
+	return <div id="fb-editor" ref={fb} />;
 }
+
+export default FormBuilder;
