@@ -30,7 +30,7 @@ const Content = ({ type, setType, colLg, typeData, label }) => {
 			title: "Input",
 			type: "input",
 			colLg: colLg,
-			label: "label",
+			label: label,
 			setType: setType,
 			element: <InputComponent id={v4()} />,
 		},
@@ -48,7 +48,6 @@ const Content = ({ type, setType, colLg, typeData, label }) => {
 	);
 
 	const addElement = (id, typeArg) => {
-		console.log("data from content", id);
 		const elements = elementList.filter((element) => id === element.id);
 		setFormBuilder((formBuilder) => [...formBuilder, elements[0]]);
 		setType(typeArg);
@@ -80,7 +79,6 @@ const Content = ({ type, setType, colLg, typeData, label }) => {
 					</Row>
 				</div>
 				{formBuilders.map((formbuilder) => {
-					console.log("data", formbuilder);
 					return (
 						<div
 							id={v4()}
@@ -95,9 +93,11 @@ const Content = ({ type, setType, colLg, typeData, label }) => {
 						</div>
 					);
 				})}
-				<Button htmlType="submit" type="primary">
-					Submit
-				</Button>
+				<div className="content-inline">
+					<Button htmlType="submit" type="primary">
+						Submit
+					</Button>
+				</div>
 			</Form>
 		</div>
 	);
