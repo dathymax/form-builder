@@ -4,7 +4,7 @@ const { Option } = Select;
 
 export function checkTypeRenderSelect(type, dataEmployees, dataDepartments) {
 	switch (type) {
-		case "employee":
+		case "employees":
 			return (
 				<Select style={{ width: "100%" }}>
 					{dataEmployees?.map((data) => (
@@ -18,7 +18,7 @@ export function checkTypeRenderSelect(type, dataEmployees, dataDepartments) {
 				</Select>
 			);
 
-		case "department":
+		case "departments":
 			return (
 				<Select style={{ width: "100%" }}>
 					{dataDepartments?.map((data) => (
