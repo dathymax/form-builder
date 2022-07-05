@@ -90,7 +90,6 @@ const SelectComponent = ({
         <div className="drag-item-render">
             <Col span={colLg || 24}>
                 <Form.Item
-                    name="select"
                     label={checkLabel(label, deleteField, "Select")}
                 >
                     {typeData === "" ? (

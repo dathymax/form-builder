@@ -8,9 +8,13 @@ import Custom from "./custom-components/layout/custom/Custom";
 
 function App() {
     const [type, setType] = useState("");
-    const [typeData, setTypeData] = useState("");
-    const [colLg, setColLg] = useState(24);
-    const [label, setLabel] = useState("");
+    const [currentIndex, setCurrentIndex] = useState();
+    const [formBuilders, setFormBuilders] = useState([]);
+
+
+    const onChangeCurrentIndex = (index) => {
+        setCurrentIndex(index);
+    }
 
     return (
         <div style={{padding: "10px"}}>
@@ -21,19 +25,18 @@ function App() {
                     </Col>
                     <Col span={12}>
                         <Content
-                            label={label}
                             type={type}
                             setType={setType}
-                            typeData={typeData}
-                            colLg={colLg}
+                            onChangeCurrentIndex={onChangeCurrentIndex}
+                            formBuilders={formBuilders}
+                            setFormBuilders={setFormBuilders}
                         />
                     </Col>
                     <Col span={6}>
                         <Custom
-                            setLabel={setLabel}
+                            currentIndex={currentIndex}
                             type={type}
-                            setTypeData={setTypeData}
-                            setColLg={setColLg}
+                            setFormBuilders={setFormBuilders}
                         />
                     </Col>
                 </Row>

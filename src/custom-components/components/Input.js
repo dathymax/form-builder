@@ -21,7 +21,6 @@ const InputComponent = ({id, title, colLg, label, deleteField}) => {
         <div className={"drag-item-render"}>
             <Col span={colLg || 24}>
                 <Form.Item
-                    name={"input"}
                     labelCol={{span: 24}}
                     label={checkLabel(label, deleteField, "Input")}
                 >

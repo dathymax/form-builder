@@ -1,35 +1,26 @@
 import {Col, Form, Input, Row} from "antd";
-import React, {useState} from "react";
+import React from "react";
 import {useDrop} from "react-dnd";
 import InputComponent from "../../components/Input";
 import SelectComponent from "../../components/Select";
 import {ItemTypes} from "../../types/items";
 
-const Content = ({type, setType, colLg, typeData, label}) => {
+const Content = ({type, setType, onChangeCurrentIndex, formBuilders, setFormBuilders}) => {
     const [form] = Form.useForm();
-    const [formBuilders, setFormBuilder] = useState([]);
 
     const elementList = [
         {
             id: 1,
             title: "Select",
             type: "select",
-            colLg: colLg,
-            label: label,
-            setType: setType,
             element: (
-                <SelectComponent
-                    typeData={typeData}
-                />
+                <SelectComponent/>
             ),
         },
         {
             id: 2,
             title: "Input",
             type: "input",
-            colLg: colLg,
-            label: label,
-            setType: setType,
             element: (
                 <InputComponent/>
             ),
@@ -39,14 +30,6 @@ const Content = ({type, setType, colLg, typeData, label}) => {
     const [, drop] = useDrop(
         () => ({
             accept: [ItemTypes.SELECT, ItemTypes.INPUT],
-            canDrop: (item) => {
-                const itemIndex = formBuilders.findIndex(
-                    (formBuilder) => formBuilder.id === item.id
-                );
-                return [itemIndex + 1, itemIndex - 1, itemIndex].includes(
-                    itemIndex
-                );
-            },
             drop: (item) => addElement(item.id, item.type),
             collect: (monitor) => ({
                 isOver: !!monitor.isOver(),
@@ -57,12 +40,15 @@ const Content = ({type, setType, colLg, typeData, label}) => {
 
     const addElement = (id, typeArg) => {
         const elements = elementList.filter((element) => id === element.id);
-        setFormBuilder((formBuilder) => [...formBuilder, elements[0]]);
+        setFormBuilders((formBuilder) => [...formBuilder, elements[0]]);
         setType(typeArg);
+        onChangeCurrentIndex(formBuilders.length);
+
     };
 
-    const onDoubleClick = (value) => {
+    const onDoubleClick = (value, index) => {
         setType(value);
+        onChangeCurrentIndex(index);
     };
 
     const onFinish = (values) => {
@@ -92,7 +78,7 @@ const Content = ({type, setType, colLg, typeData, label}) => {
                                 id={`${index}`}
                                 key={index}
                                 onDoubleClick={() =>
-                                    onDoubleClick(formBuilder.type)
+                                    onDoubleClick(formBuilder.type, index)
                                 }
                                 className="drag-item-render"
                             >
@@ -100,6 +86,7 @@ const Content = ({type, setType, colLg, typeData, label}) => {
                                     id: formBuilder.id,
                                     colLg: formBuilder.colLg,
                                     label: formBuilder.label,
+                                    typeData: formBuilder?.typeData
                                 })}
                             </div>
                         );
