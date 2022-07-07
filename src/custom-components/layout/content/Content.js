@@ -214,7 +214,8 @@ const Content = ({
                         );
                     })}
                 </div>
-                <Button type={"default"} style={{margin: "20px 20px 20px 10px"}} onClick={handleShowPreview}>Preview</Button>
+                <Button type={"default"} style={{margin: "20px 20px 20px 10px"}}
+                        onClick={handleShowPreview}>Preview</Button>
             </Form>
 
             <Modal
