@@ -18,11 +18,11 @@ const CheckListComponent = ({id, title, colLg, label, deleteField}) => {
             Check list
         </div>
     ) : (
-        <div className={"drag-item-render"}>
+        <div ref={drag}>
             <Col span={colLg || 24}>
                 <Form.Item
                     labelCol={{span: 24}}
-                    label={checkLabel(label, deleteField, "Check list")}
+                    label={checkLabel(id, label, deleteField, "Check list")}
                 >
                     <Checkbox/>
                 </Form.Item>

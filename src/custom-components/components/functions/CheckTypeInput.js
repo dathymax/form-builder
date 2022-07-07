@@ -115,6 +115,17 @@ export function RenderFormCustomInput({onSetup, initialKeyword, form, isSelect})
                 </Col>
                 <Col span={24}>
                     <Form.Item
+                        name="name"
+                        label="Từ khóa cho dữ liệu đầu vào"
+                        labelCol={{span: 24}}
+                        labelAlign={"left"}
+                        wrapperCol={{span: 24}}
+                    >
+                        <Input/>
+                    </Form.Item>
+                </Col>
+                <Col span={24}>
+                    <Form.Item
                         name="recommend"
                         label="Gợi ý"
                         labelCol={{span: 24}}

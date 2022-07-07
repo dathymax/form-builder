@@ -4,7 +4,11 @@ import {useDrag} from "react-dnd";
 import {ItemTypes} from "../types/items";
 import {checkLabel} from "./functions/CheckLabel";
 
-const TextAreaComponent = ({id, title, colLg, label, deleteField, placeholder}) => {
+const TextAreaComponent = ({
+                               id, title, colLg,
+                               label, deleteField, placeholder,
+                               name, required
+                           }) => {
     const [, drag] = useDrag(() => ({
         type: ItemTypes.TEXTAREA,
         item: {id: id, type: ItemTypes.TEXTAREA},
@@ -18,11 +22,13 @@ const TextAreaComponent = ({id, title, colLg, label, deleteField, placeholder}) 
             Văn bản
         </div>
     ) : (
-        <div className={"drag-item-render"}>
+        <div ref={drag}>
             <Col span={colLg || 24}>
                 <Form.Item
+                    name={name}
                     labelCol={{span: 24}}
-                    label={checkLabel(label, deleteField, "Textarea")}
+                    label={checkLabel(id, label, deleteField, "Textarea")}
+                    required={required}
                 >
                     <Input.TextArea placeholder={placeholder}/>
                 </Form.Item>

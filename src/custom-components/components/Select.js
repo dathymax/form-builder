@@ -9,12 +9,9 @@ const {Option} = Select;
 const BasePathMock = "http://localhost:3000";
 
 const SelectComponent = ({
-                             id,
-                             title,
-                             typeData,
-                             colLg,
-                             label,
-                             deleteField,
+                             id, title, typeData,
+                             colLg, label, name,
+                             deleteField, required
                          }) => {
     const emptyArray = [];
     const [dataEmployees, setDataEmployees] = useState([]);
@@ -104,13 +101,15 @@ const SelectComponent = ({
             Select
         </div>
     ) : (
-        <div className="drag-item-render">
+        <div ref={drag}>
             <Col span={colLg || 24}>
                 <Form.Item
+                    name={name}
                     labelCol={{span: 24}}
-                    label={checkLabel(label, deleteField, "Select")}
+                    label={checkLabel(id, label, deleteField, "Select")}
+                    required={required}
                 >
-                    {checkTypeData()}
+                    {checkTypeData(typeData)}
                 </Form.Item>
             </Col>
         </div>

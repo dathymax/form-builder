@@ -207,7 +207,7 @@ const FormListComponent = ({
             Biểu mẫu động
         </div>
     ) : (
-        <div ref={drag} className={"drag-item-render form-list-render"}>
+        <div ref={drag} className={"form-list-render"}>
             <div ref={drop} className={"form-list-drop"}>
                 <Col span={colLg || 24}>
                     <Form.List name={"names"}>

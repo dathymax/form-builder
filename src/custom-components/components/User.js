@@ -6,7 +6,11 @@ import {checkLabel} from "./functions/CheckLabel";
 
 const {Option} = Select;
 
-const UserComponent = ({id, title, colLg, label, deleteField, placeholder}) => {
+const UserComponent = ({
+                           id, title, colLg,
+                           label, deleteField, placeholder,
+                           name, required
+                       }) => {
     const [, drag] = useDrag(() => ({
         type: ItemTypes.USER,
         item: {id: id, type: ItemTypes.USER},
@@ -20,11 +24,13 @@ const UserComponent = ({id, title, colLg, label, deleteField, placeholder}) => {
             User
         </div>
     ) : (
-        <div className={"drag-item-render"}>
+        <div ref={drag}>
             <Col span={colLg || 24}>
                 <Form.Item
+                    name={name}
                     labelCol={{span: 24}}
-                    label={checkLabel(label, deleteField, "User")}
+                    label={checkLabel(id, label, deleteField, "User")}
+                    required={required}
                 >
                     <Select style={{width: "100%"}} placeholder={placeholder}>
                         <Option

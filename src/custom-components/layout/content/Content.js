@@ -1,25 +1,15 @@
-import {Col, Form, Input, Row} from "antd";
-import React from "react";
+import {Button, Col, Form, Input, Modal, Row} from "antd";
+import React, {useState} from "react";
 import {useDrop} from "react-dnd";
 import {ItemTypes} from "../../types/items";
-import InputComponent from "../../components/Input";
-import TextAreaComponent from "../../components/TextArea";
-import InputNumberComponent from "../../components/InputNumber";
-import SelectComponent from "../../components/Select";
-import DatePickerComponent from "../../components/Date";
-import TimePickerComponent from "../../components/Time";
-import RadioComponent from "../../components/Radio";
-import CheckListComponent from "../../components/CheckList";
-import UserComponent from "../../components/User";
-import FormulaComponent from "../../components/Formula";
 import BoxElement from "../../components/BoxElement";
+import Preview from "./Preview";
 
 const Content = ({
                      type, setType, onChangeCurrentIndex,
-                     formBuilders, setFormBuilders,
-                     currentIndex, setObjectData
+                     formBuilders, setFormBuilders, setObjectData
                  }) => {
-    const [form] = Form.useForm();
+    const [showPreview, setShowPreview] = useState(false);
 
     const elementList = [
         {
@@ -29,10 +19,8 @@ const Content = ({
             colLg: 24,
             label: "Input",
             placeholder: "placeholder",
+            name: "name",
             required: false,
-            // element: (
-            //     <InputComponent/>
-            // ),
         },
         {
             id: 2,
@@ -41,10 +29,8 @@ const Content = ({
             colLg: 24,
             label: "Textarea",
             placeholder: "placeholder",
+            name: "name",
             required: false,
-            // element: (
-            //     <TextAreaComponent/>
-            // ),
         },
         {
             id: 3,
@@ -53,10 +39,8 @@ const Content = ({
             colLg: 24,
             label: "Input Number",
             placeholder: "placeholder",
+            name: "name",
             required: false,
-            // element: (
-            //     <InputNumberComponent/>
-            // ),
         },
         {
             id: 4,
@@ -65,10 +49,8 @@ const Content = ({
             colLg: 24,
             label: "Select",
             placeholder: "placeholder",
+            name: "name",
             required: false,
-            // element: (
-            //     <SelectComponent/>
-            // ),
         },
         {
             id: 5,
@@ -76,10 +58,9 @@ const Content = ({
             type: "date",
             colLg: 24,
             label: "Date",
+            placeholder: "placeholder",
+            name: "name",
             required: false,
-            // element: (
-            //     <DatePickerComponent/>
-            // ),
         },
         {
             id: 6,
@@ -87,10 +68,9 @@ const Content = ({
             type: "time",
             colLg: 24,
             label: "Time",
+            placeholder: "placeholder",
+            name: "name",
             required: false,
-            // element: (
-            //     <TimePickerComponent/>
-            // ),
         },
         {
             id: 7,
@@ -99,10 +79,8 @@ const Content = ({
             colLg: 24,
             label: "Radio",
             placeholder: "placeholder",
+            name: "name",
             required: false,
-            // element: (
-            //     <RadioComponent/>
-            // ),
         },
         {
             id: 8,
@@ -111,10 +89,8 @@ const Content = ({
             colLg: 24,
             label: "Check List",
             placeholder: "placeholder",
+            name: "name",
             required: false,
-            // element: (
-            //     <CheckListComponent/>
-            // ),
         },
         {
             id: 9,
@@ -123,10 +99,8 @@ const Content = ({
             colLg: 24,
             label: "User",
             placeholder: "placeholder",
+            name: "name",
             required: false,
-            // element: (
-            //     <UserComponent/>
-            // ),
         },
         {
             id: 10,
@@ -135,24 +109,18 @@ const Content = ({
             colLg: 24,
             label: "Formula",
             placeholder: "placeholder",
+            name: "name",
             required: false,
-            // element: (
-            //     <FormulaComponent/>
-            // ),
         },
-        // {
-        //     id: 11,
-        //     title: "Form list",
-        //     type: "formlist",
-        //     colLg: 24,
-        //     label: "Form list",
-        //     placeholder: "placeholder",
-        //     required: false,
-        //     element: (
-        //         <FormListComponent/>
-        //     ),
-        // },
     ];
+
+    const handleShowPreview = () => {
+        setShowPreview(true);
+    }
+
+    const handleClosePreview = () => {
+        setShowPreview(false);
+    }
 
     const [, drop] = useDrop(
         () => ({
@@ -177,8 +145,10 @@ const Content = ({
         onChangeCurrentIndex(formBuilders.length);
     };
 
-    const deleteElement = () => {
-        setFormBuilders(((elements) => elements.filter((element) => element.id !== currentIndex)));
+    const deleteField = (index) => {
+        setFormBuilders(((elements) => elements.filter((element) => element.id !== index)));
+        setType("");
+        onChangeCurrentIndex(formBuilders.length);
     };
 
     const onDoubleClick = (e, typeArg, colLgArg, labelArg, typeDataArg, placeholderArg, index) => {
@@ -200,12 +170,8 @@ const Content = ({
         onChangeCurrentIndex(index);
     };
 
-    const onFinish = (values) => {
-        console.log("data", JSON.stringify(values));
-    };
-
     return (<div ref={drop} className="content">
-            <Form onFinish={onFinish} layout="vertical" form={form}>
+            <Form layout="vertical">
                 <div className="content-inline">
                     <Row gutter={12}>
                         <Col span={12}>
@@ -239,21 +205,28 @@ const Content = ({
                                 }
                                 className="drag-item-render"
                             >
-                                {/*{React.cloneElement(formBuilder.element, {*/}
-                                {/*    id: formBuilder.id,*/}
-                                {/*    colLg: formBuilder.colLg,*/}
-                                {/*    label: formBuilder.label,*/}
-                                {/*    required: formBuilder.required,*/}
-                                {/*    typeData: formBuilder?.typeData,*/}
-                                {/*    placeholder: formBuilder.placeholder,*/}
-                                {/*    deleteField: deleteElement,*/}
-                                {/*})}*/}
-                                <BoxElement type={formBuilder.type} formBuilder={formBuilder}/>
+                                <BoxElement
+                                    type={formBuilder.type}
+                                    formBuilder={formBuilder}
+                                    deleteField={deleteField}
+                                />
                             </div>
                         );
                     })}
                 </div>
+                <Button type={"default"} style={{margin: "20px 20px 20px 10px"}} onClick={handleShowPreview}>Preview</Button>
             </Form>
+
+            <Modal
+                title={"Preview form builder"}
+                visible={showPreview}
+                onOk={handleClosePreview}
+                onCancel={handleClosePreview}
+                width={700}
+                bodyStyle={{maxHeight: 600, overflow: "auto"}}
+            >
+                <Preview formBuilders={formBuilders}/>
+            </Modal>
         </div>
     );
 };

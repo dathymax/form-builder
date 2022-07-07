@@ -6,11 +6,13 @@ const UserCustom = ({setFormBuilders, currentIndex}) => {
     const [form] = Form.useForm();
     const initialKeyword = "User";
 
-    const onSetup = (value) => {
+    const onSetup = (values) => {
         setFormBuilders(prev => {
-
-            prev[currentIndex].label = value.label;
-            prev[currentIndex].colLg = value.col;
+            prev[currentIndex].colLg = values.col;
+            prev[currentIndex].label = values.label;
+            prev[currentIndex].required = values.required;
+            prev[currentIndex].placeholder = values.placeholder;
+            prev[currentIndex].name = values.name
 
             return [...prev];
         })

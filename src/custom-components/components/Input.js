@@ -5,7 +5,7 @@ import {ItemTypes} from "../types/items";
 import {checkLabel} from "./functions/CheckLabel";
 
 const InputComponent = ({
-                            id, title, colLg, label,
+                            id, title, colLg, label, name,
                             deleteField, placeholder, required
                         }) => {
     const [, drag] = useDrag(() => ({
@@ -21,11 +21,12 @@ const InputComponent = ({
             Ký tự
         </div>
     ) : (
-        <div ref={drag} className={"drag-item-render"}>
+        <div ref={drag}>
             <Col span={colLg || 24}>
                 <Form.Item
+                    name={name}
                     labelCol={{span: 24}}
-                    label={checkLabel(label, deleteField, "Input")}
+                    label={checkLabel(id, label, deleteField, "Input")}
                     required={required}
                 >
                     <Input placeholder={placeholder}/>

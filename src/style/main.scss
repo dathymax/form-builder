@@ -1,79 +1,93 @@
 .content {
-	border: 1px solid #000;
-	max-height: 100vh;
-	overflow: auto;
-	height: calc(100vh - 20px);
+    border: 1px solid #000;
+    max-height: 100vh;
+    overflow: auto;
+    height: calc(100vh - 20px);
 
-	&-inline {
-		padding: 10px 10px 0 10px;
-	}
+    &-inline {
+        padding: 10px 10px 0 10px;
+    }
 
-	&-form-builder {
-		border: 1px dashed gray;
-		margin: 0 10px;
-		padding: 10px 0;
-		height: calc(100vh - 130px);
-		overflow: auto;
+    &-form-builder {
+        border: 1px dashed gray;
+        margin: 0 10px;
+        padding: 10px 0;
+        height: calc(100vh - 190px);
+        overflow: auto;
 
-		.ant-col.ant-form-item-label > label {
-			width: 100%;
-		}
+        .ant-col.ant-form-item-label > label {
+            width: 100%;
+        }
 
-		.actions {
-			display: none;
-		}
+        .actions {
+            display: none;
+        }
 
-		:hover {
-			.actions {
-				display: block;
-			}
-		}
-	}
+        :hover {
+            .actions {
+                display: block;
+            }
+        }
+    }
+
+    &-form-preview {
+        .actions {
+            display: none;
+        }
+    }
 }
 
 .sidebar {
-	border: 1px solid #000;
-	padding: 10px;
-	overflow: auto;
-	height: calc(100vh - 20px);
-	background-color: #f5f4f4;
+    border: 1px solid #000;
+    padding: 10px;
+    overflow: auto;
+    height: calc(100vh - 20px);
+    background-color: #f5f4f4;
 }
 
 .custom {
-	border: 1px solid #000;
-	padding: 10px;
-	overflow: auto;
-	height: calc(100vh - 20px);
+    border: 1px solid #000;
+    padding: 10px;
+    overflow: auto;
+    height: calc(100vh - 20px);
 }
 
 .drag-item {
-	border: 1px solid #000;
-	padding: 10px;
-	cursor: move;
-	background-color: white;
+    border: 1px solid #000;
+    padding: 10px;
+    cursor: move;
+    background-color: white;
 
-	&-render {
-		cursor: pointer;
-	}
+    &-render {
+        cursor: pointer;
+        border: 1px dashed gray;
+        margin: 10px;
+        background-color: #f1efef;
+    }
 }
 
 .cursor-pointer {
-	cursor: pointer;
-	transition: all 0.25s linear;
+    cursor: pointer;
+    transition: all 0.25s linear;
+}
 
-	&:hover {
-		color: red;
-	}
+.close-btn {
+    transition: all 0.25s linear;
+
+    &:hover {
+        color: red;
+    }
 }
 
 .form-list {
-	&-render {
-		border: 1px dashed gray;
-		height: 100px;
-		margin: 0 10px 10px 10px;
-	}
-	&-drop {
-		height: 100%;
-		width: 100%;
-	}
+    &-render {
+        border: 1px dashed gray;
+        height: 100px;
+        margin: 0 10px 10px 10px;
+    }
+
+    &-drop {
+        height: 100%;
+        width: 100%;
+    }
 }

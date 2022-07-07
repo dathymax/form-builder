@@ -4,7 +4,11 @@ import {useDrag} from "react-dnd";
 import {ItemTypes} from "../types/items";
 import {checkLabel} from "./functions/CheckLabel";
 
-const RadioComponent = ({id, title, colLg, label, deleteField}) => {
+const RadioComponent = ({
+                            id, title, colLg,
+                            label, deleteField, name,
+                            required
+                        }) => {
     const [, drag] = useDrag(() => ({
         type: ItemTypes.RADIO,
         item: {id: id, type: ItemTypes.RADIO},
@@ -18,11 +22,13 @@ const RadioComponent = ({id, title, colLg, label, deleteField}) => {
             Radio
         </div>
     ) : (
-        <div className={"drag-item-render"}>
+        <div ref={drag}>
             <Col span={colLg || 24}>
                 <Form.Item
+                    name={name}
                     labelCol={{span: 24}}
-                    label={checkLabel(label, deleteField, "Radio")}
+                    label={checkLabel(id, label, deleteField, "Radio")}
+                    required={required}
                 >
                     <Radio/>
                 </Form.Item>

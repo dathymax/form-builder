@@ -1,7 +1,8 @@
 import React from "react";
 import {style} from "./styles";
+import {MinusCircleOutlined} from "@ant-design/icons";
 
-export function checkLabel(labelArg, deleteField, labelName) {
+export function checkLabel(id, labelArg, deleteField, labelName) {
     if (labelArg !== "") {
         return <div
             style={style}
@@ -9,10 +10,10 @@ export function checkLabel(labelArg, deleteField, labelName) {
             <div>{labelArg}</div>
             <div className="actions">
                 <div
-                    onClick={() => deleteField}
-                    className="cursor-pointer"
+                    onClick={() => deleteField(id)}
+                    className="cursor-pointer close-btn"
                 >
-                    X
+                    <MinusCircleOutlined />
                 </div>
             </div>
         </div>
@@ -24,9 +25,9 @@ export function checkLabel(labelArg, deleteField, labelName) {
             <div className="actions">
                 <div
                     onClick={() => deleteField}
-                    className="cursor-pointer"
+                    className="cursor-pointer close-btn"
                 >
-                    X
+                    <MinusCircleOutlined />
                 </div>
             </div>
         </div>

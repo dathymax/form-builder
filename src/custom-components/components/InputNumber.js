@@ -1,10 +1,14 @@
-import {Col, Form, Input} from "antd";
+import {Col, Form, InputNumber} from "antd";
 import React from "react";
 import {useDrag} from "react-dnd";
 import {ItemTypes} from "../types/items";
 import {checkLabel} from "./functions/CheckLabel";
 
-const InputNumberComponent = ({id, title, colLg, label, deleteField, placeholder}) => {
+const InputNumberComponent = ({
+                                  id, title, colLg, label,
+                                  deleteField, placeholder,
+                                  name, required
+                              }) => {
     const [, drag] = useDrag(() => ({
         type: ItemTypes.INPUTNUMBER,
         item: {id: id, type: ItemTypes.INPUTNUMBER},
@@ -18,13 +22,15 @@ const InputNumberComponent = ({id, title, colLg, label, deleteField, placeholder
             Số
         </div>
     ) : (
-        <div className={"drag-item-render"}>
+        <div ref={drag}>
             <Col span={colLg || 24}>
                 <Form.Item
+                    name={name}
                     labelCol={{span: 24}}
-                    label={checkLabel(label, deleteField, "Input Number")}
+                    label={checkLabel(id, label, deleteField, "Input Number")}
+                    required={required}
                 >
-                    <Input placeholder={placeholder}/>
+                    <InputNumber placeholder={placeholder} style={{width: "100%"}}/>
                 </Form.Item>
             </Col>
         </div>

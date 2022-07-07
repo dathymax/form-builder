@@ -12,6 +12,7 @@ const InputCustom = ({setFormBuilders, currentIndex}) => {
             prev[currentIndex].label = values.label;
             prev[currentIndex].required = values.required;
             prev[currentIndex].placeholder = values.placeholder;
+            prev[currentIndex].name = values.name
 
             return [...prev];
         })
