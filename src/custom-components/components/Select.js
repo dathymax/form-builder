@@ -19,7 +19,7 @@ const SelectComponent = ({
     const emptyArray = [];
     const [dataEmployees, setDataEmployees] = useState([]);
     const [dataDepartments, setDataDepartments] = useState([]);
-    const [{isDragging}, drag] = useDrag(() => ({
+    const [, drag] = useDrag(() => ({
         type: ItemTypes.SELECT,
         item: {id: id, type: ItemTypes.SELECT},
         collect: (monitor) => ({
@@ -82,6 +82,23 @@ const SelectComponent = ({
         }
     }
 
+    function checkTypeData(typeDataArg) {
+        if (typeDataArg === "") {
+            return <Select style={{width: "100%"}}>
+                {emptyArray?.map((data) => (
+                    <Option
+                        key={`${data.id}-${data.id}`}
+                        value={data.id}
+                    >
+                        {data.id}
+                    </Option>
+                ))}
+            </Select>
+        } else {
+            return checkTypeRenderSelect()
+        }
+    }
+
     return title ? (
         <div ref={drag} className={"drag-item"}>
             Select
@@ -90,22 +107,10 @@ const SelectComponent = ({
         <div className="drag-item-render">
             <Col span={colLg || 24}>
                 <Form.Item
+                    labelCol={{span: 24}}
                     label={checkLabel(label, deleteField, "Select")}
                 >
-                    {typeData === "" ? (
-                        <Select style={{width: "100%"}}>
-                            {emptyArray?.map((data) => (
-                                <Option
-                                    key={`${data.id}-${data.id}`}
-                                    value={data.id}
-                                >
-                                    {data.id}
-                                </Option>
-                            ))}
-                        </Select>
-                    ) : (
-                        checkTypeRenderSelect()
-                    )}
+                    {checkTypeData()}
                 </Form.Item>
             </Col>
         </div>

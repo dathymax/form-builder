@@ -2,16 +2,15 @@ import {Form} from "antd";
 import React from "react";
 import {RenderFormCustomInput} from "../../../components/functions/CheckTypeInput";
 
-const InputCustom = ({setFormBuilders, currentIndex}) => {
+const FormulaCustom = ({setFormBuilders, currentIndex}) => {
     const [form] = Form.useForm();
-    const initialKeyword = "Ký tự";
+    const initialKeyword = "Formula";
 
-    const onSetup = (values) => {
+    const onSetup = (value) => {
         setFormBuilders(prev => {
-            prev[currentIndex].colLg = values.col;
-            prev[currentIndex].label = values.label;
-            prev[currentIndex].required = values.required;
-            prev[currentIndex].placeholder = values.placeholder;
+
+            prev[currentIndex].label = value.label;
+            prev[currentIndex].colLg = value.col;
 
             return [...prev];
         })
@@ -21,7 +20,7 @@ const InputCustom = ({setFormBuilders, currentIndex}) => {
 
     return (
         <RenderFormCustomInput onSetup={onSetup} form={form} initialKeyword={initialKeyword}/>
-    )
+    );
 };
 
-export default InputCustom;
+export default FormulaCustom;

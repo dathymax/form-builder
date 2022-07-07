@@ -1,10 +1,10 @@
 import {Form} from "antd";
-import React from "react";
 import {RenderFormCustomInput} from "../../../components/functions/CheckTypeInput";
+import React from "react";
 
-const InputCustom = ({setFormBuilders, currentIndex}) => {
+const DateCustom = ({setFormBuilders, currentIndex}) => {
     const [form] = Form.useForm();
-    const initialKeyword = "Ký tự";
+    const initialKeyword = "Ngày";
 
     const onSetup = (values) => {
         setFormBuilders(prev => {
@@ -21,7 +21,7 @@ const InputCustom = ({setFormBuilders, currentIndex}) => {
 
     return (
         <RenderFormCustomInput onSetup={onSetup} form={form} initialKeyword={initialKeyword}/>
-    )
+    );
 };
 
-export default InputCustom;
+export default DateCustom;

@@ -1,16 +1,13 @@
-import {Col, Form, Input} from "antd";
+import {Col, Form, TimePicker} from "antd";
 import React from "react";
 import {useDrag} from "react-dnd";
 import {ItemTypes} from "../types/items";
 import {checkLabel} from "./functions/CheckLabel";
 
-const InputComponent = ({
-                            id, title, colLg, label,
-                            deleteField, placeholder, required
-                        }) => {
+const TimePickerComponent = ({id, title, colLg, label, deleteField, placeholder}) => {
     const [, drag] = useDrag(() => ({
-        type: ItemTypes.INPUT,
-        item: {id: id, type: ItemTypes.INPUT},
+        type: ItemTypes.TIME,
+        item: {id: id, type: ItemTypes.TIME},
         collect: (monitor) => ({
             isDragging: !!monitor.isDragging(),
         }),
@@ -18,21 +15,20 @@ const InputComponent = ({
 
     return title ? (
         <div ref={drag} className={"drag-item"}>
-            Ký tự
+            Giờ
         </div>
     ) : (
-        <div ref={drag} className={"drag-item-render"}>
+        <div className={"drag-item-render"}>
             <Col span={colLg || 24}>
                 <Form.Item
                     labelCol={{span: 24}}
-                    label={checkLabel(label, deleteField, "Input")}
-                    required={required}
+                    label={checkLabel(label, deleteField, "Time")}
                 >
-                    <Input placeholder={placeholder}/>
+                    <TimePicker style={{width: "100%"}} placeholder={placeholder}/>
                 </Form.Item>
             </Col>
         </div>
     );
 };
 
-export default InputComponent;
+export default TimePickerComponent;

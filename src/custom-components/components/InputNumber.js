@@ -4,13 +4,10 @@ import {useDrag} from "react-dnd";
 import {ItemTypes} from "../types/items";
 import {checkLabel} from "./functions/CheckLabel";
 
-const InputComponent = ({
-                            id, title, colLg, label,
-                            deleteField, placeholder, required
-                        }) => {
+const InputNumberComponent = ({id, title, colLg, label, deleteField, placeholder}) => {
     const [, drag] = useDrag(() => ({
-        type: ItemTypes.INPUT,
-        item: {id: id, type: ItemTypes.INPUT},
+        type: ItemTypes.INPUTNUMBER,
+        item: {id: id, type: ItemTypes.INPUTNUMBER},
         collect: (monitor) => ({
             isDragging: !!monitor.isDragging(),
         }),
@@ -18,15 +15,14 @@ const InputComponent = ({
 
     return title ? (
         <div ref={drag} className={"drag-item"}>
-            Ký tự
+            Số
         </div>
     ) : (
-        <div ref={drag} className={"drag-item-render"}>
+        <div className={"drag-item-render"}>
             <Col span={colLg || 24}>
                 <Form.Item
                     labelCol={{span: 24}}
-                    label={checkLabel(label, deleteField, "Input")}
-                    required={required}
+                    label={checkLabel(label, deleteField, "Input Number")}
                 >
                     <Input placeholder={placeholder}/>
                 </Form.Item>
@@ -35,4 +31,4 @@ const InputComponent = ({
     );
 };
 
-export default InputComponent;
+export default InputNumberComponent;

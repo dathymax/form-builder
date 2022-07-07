@@ -1,16 +1,13 @@
-import {Col, Form, Input} from "antd";
+import {Checkbox, Col, Form} from "antd";
 import React from "react";
 import {useDrag} from "react-dnd";
 import {ItemTypes} from "../types/items";
 import {checkLabel} from "./functions/CheckLabel";
 
-const InputComponent = ({
-                            id, title, colLg, label,
-                            deleteField, placeholder, required
-                        }) => {
+const CheckListComponent = ({id, title, colLg, label, deleteField}) => {
     const [, drag] = useDrag(() => ({
-        type: ItemTypes.INPUT,
-        item: {id: id, type: ItemTypes.INPUT},
+        type: ItemTypes.CHECKLIST,
+        item: {id: id, type: ItemTypes.CHECKLIST},
         collect: (monitor) => ({
             isDragging: !!monitor.isDragging(),
         }),
@@ -18,21 +15,20 @@ const InputComponent = ({
 
     return title ? (
         <div ref={drag} className={"drag-item"}>
-            Ký tự
+            Check list
         </div>
     ) : (
-        <div ref={drag} className={"drag-item-render"}>
+        <div className={"drag-item-render"}>
             <Col span={colLg || 24}>
                 <Form.Item
                     labelCol={{span: 24}}
-                    label={checkLabel(label, deleteField, "Input")}
-                    required={required}
+                    label={checkLabel(label, deleteField, "Check list")}
                 >
-                    <Input placeholder={placeholder}/>
+                    <Checkbox/>
                 </Form.Item>
             </Col>
         </div>
     );
 };
 
-export default InputComponent;
+export default CheckListComponent;

@@ -8,9 +8,9 @@ import Custom from "./custom-components/layout/custom/Custom";
 
 function App() {
     const [type, setType] = useState("");
-    const [currentIndex, setCurrentIndex] = useState();
+    const [currentIndex, setCurrentIndex] = useState(1);
     const [formBuilders, setFormBuilders] = useState([]);
-
+    const [objectData, setObjectData] = useState({});
 
     const onChangeCurrentIndex = (index) => {
         setCurrentIndex(index);
@@ -27,15 +27,18 @@ function App() {
                         <Content
                             type={type}
                             setType={setType}
-                            onChangeCurrentIndex={onChangeCurrentIndex}
+                            currentIndex={currentIndex}
                             formBuilders={formBuilders}
+                            setObjectData={setObjectData}
                             setFormBuilders={setFormBuilders}
+                            onChangeCurrentIndex={onChangeCurrentIndex}
                         />
                     </Col>
                     <Col span={6}>
                         <Custom
-                            currentIndex={currentIndex}
                             type={type}
+                            objectData={objectData}
+                            currentIndex={currentIndex}
                             setFormBuilders={setFormBuilders}
                         />
                     </Col>
